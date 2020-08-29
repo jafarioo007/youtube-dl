@@ -25,8 +25,8 @@ class XHamsterIE(InfoExtractor):
                     https?://
                         (?:.+?\.)?%s/
                         (?:
-                            movies/(?P<id>[\dA-Za-z]+)/(?P<display_id>[^/]*)\.html|
-                            videos/(?P<display_id_2>[^/]*)-(?P<id_2>[\dA-Za-z]+)
+                            movies/(?P<id>[\dA-z]+)/(?P<display_id>[^/]*)\.html|
+                            videos/(?P<display_id_2>[^/]*)-(?P<id_2>[\dA-z]+)
                         )
                     ''' % _DOMAINS
     _TESTS = [{
@@ -138,7 +138,7 @@ class XHamsterIE(InfoExtractor):
 
         initials = self._parse_json(
             self._search_regex(
-                r'window\.initials\s*=\s*({.+?})\s*;', webpage, 'initials',
+                r'window.initials\s*=\s*({.+?})\s*;<', webpage, 'initials',
                 default='{}'),
             video_id, fatal=False)
         if initials:
@@ -391,3 +391,4 @@ class XHamsterUserIE(InfoExtractor):
     def _real_extract(self, url):
         user_id = self._match_id(url)
         return self.playlist_result(self._entries(user_id), user_id)
+        
